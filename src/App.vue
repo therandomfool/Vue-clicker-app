@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h2>{{ state.count }}, doubled = {{state.double}}</h2>
+  <button @click="UpdateCount(true)">Increment</button>
+  <button @click="UpdateCount(false)">Decrease</button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { reactive, computed } from "vue";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  setup() {
+    const state = reactive({
+      count: 0,
+      double: computed(() => state.count *2)
+    })
+
+    function UpdateCount(increase) {
+      if (increase) 
+        state.count++;
+      else 
+        state.count--;
+
+    }
+
+   
+
+    return {
+        state,
+        UpdateCount
+      };
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
